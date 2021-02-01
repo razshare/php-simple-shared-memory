@@ -1,5 +1,7 @@
 <?php
 require_once './vendor/autoload.php';
+use com\github\tncrazvan\simplesharedmemory\SimpleSharedMemory;
+
 
 $mem = new SimpleSharedMemory();
 
