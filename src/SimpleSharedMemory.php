@@ -11,7 +11,17 @@ class SimpleSharedMemory{
     private ?int $key = null;
 
     
-    private function id(int $length):?\Shmop{
+    private function id(?int $length = null):?\Shmop{
+        if($length === null){
+            if($this->size !== null){
+                $length = $this->size;
+            }else{
+                $length = 1;
+                $this->size = 1;
+            }
+        }
+
+
         if($this->key)
             $key = $this->key;
         else{
@@ -27,28 +37,16 @@ class SimpleSharedMemory{
         return !$id?null:$id;
     }
 
-    private function assign(?int $length = null):?\Shmop{
-        if($length === null){
-            if($this->size !== null){
-                $length = $this->size;
-            }else{
-                $length = 1;
-                $this->size = 1;
-            }
-        }
-
-        return $this->id($length);
-    }
-
     public function persist(mixed $value):?\Shmop{
         $serialized = serialize($value);
-        $id = $this->assign(\strlen($serialized));
+        $id = $this->id(\strlen($serialized));
         if(!$id)
             return null;
         return shmop_write($id,$serialized,0) !== false;
     }
 
-    public function delete():bool{
-        
+    public function delete(?int $length = null):bool{
+        $id = $this->id($length);
+        return \shmop_delete($id);
     }
 }
