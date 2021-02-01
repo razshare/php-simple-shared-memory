@@ -1,19 +1,21 @@
 {
-    "name": "razvan/simple-fork",
-    "type": "library",
-    "authors": [
-        {
-            "name": "Razvan Tanase",
-            "email": "tangent.jotey@gmail.com"
-        }
-    ],
-    "scripts":{
-        "start": "php src/main.php"
-    },
-    "require": {
-        "opis/closure": "^3.5"
-    },
-    "autoload": {
+    "name": "tncrazvan/simple-shared-memory",
+	"description": "A helper to share memory between forks.",
+	"type": "library",
+	"license": "Apache 2.0",
+	"authors": [
+	{
+		"name": "Razvan Tanase",
+		"email": "tangent.jotey@gmail.com"
+	}
+	],
+	"require": {
+		"php": ">=8.0"
+	},
+	"config": {
+		"preferred-install": "dist"
+	},
+	"autoload": {
 		"psr-4": {
 			"":["src"]
 		}
