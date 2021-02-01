@@ -12,6 +12,10 @@ class SimpleSharedMemory{
     private ?int $size = null;
     private ?int $key = null;
 
+    public function __construct(mixed $value = null){
+        if($value !== null)
+            $this->persist($value);
+    }
     
     private function id(?int $length = null):?\Shmop{
         if($length === null){
