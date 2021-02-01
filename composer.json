@@ -2,7 +2,7 @@
     "name": "tncrazvan/simple-shared-memory",
 	"description": "A helper to share memory between forks.",
 	"type": "library",
-	"license": "Apache 2.0",
+	"license": "Apache-2.0",
 	"authors": [
 	{
 		"name": "Razvan Tanase",
