@@ -19,6 +19,8 @@ class SimpleSharedMemory{
                 $length = 1;
                 $this->size = 1;
             }
+        }else{
+            $this->size = $length;
         }
 
 
@@ -37,16 +39,26 @@ class SimpleSharedMemory{
         return !$id?null:$id;
     }
 
-    public function persist(mixed $value):?\Shmop{
+    public function persist(mixed $value):bool{
         $serialized = serialize($value);
-        $id = $this->id(\strlen($serialized));
+        $size = \strlen($serialized);
+        $this->delete($size);
+        $id = $this->id($size);
         if(!$id)
             return null;
         return shmop_write($id,$serialized,0) !== false;
     }
 
-    public function delete(?int $length = null):bool{
-        $id = $this->id($length);
+    public function find():mixed{
+        $id = $this->id();
+        $value = \shmop_read($id,0,$this->size);
+        if(!$value) $value = null;
+        return \unserialize($value);
+    }
+
+    public function delete(?int $length = null, ?\Shmop $id= null):bool{
+        if(!$id) 
+            $id = $this->id($length);
         return \shmop_delete($id);
     }
 }

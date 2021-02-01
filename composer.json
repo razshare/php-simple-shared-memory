@@ -7,6 +7,9 @@
             "email": "tangent.jotey@gmail.com"
         }
     ],
+    "scripts":{
+        "start": "php src/main.php"
+    },
     "require": {
         "opis/closure": "^3.5"
     },
